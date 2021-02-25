@@ -1,25 +1,28 @@
 package alekseytyan;
 
-import alekseytyan.config.AppConfig;
 import alekseytyan.entity.Singer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-// @SpringBootApplication
-public class DemoApplication {
+@SpringBootApplication
+public class DemoApplication implements CommandLineRunner {
 
-    public static void main(String[] args) {
-        // SpringApplication.run(DemoApplication.class, args);
+    private Singer singer;
+
+    @Autowired
+    public void setSinger(@Qualifier("eric") Singer singer) {
+        this.singer = singer;
     }
 
-    // @Override
-    public void run(String... args) throws Exception {
-        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
 
-        Singer singer = ctx.getBean("countrySinger", Singer.class);
-
+    @Override
+    public void run(String... args) {
         System.out.println(singer);
     }
 }

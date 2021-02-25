@@ -5,7 +5,6 @@ import org.joda.time.DateTime;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 
-
 public class Singer {
 
     private String firstName;

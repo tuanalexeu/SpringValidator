@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.net.MalformedURLException;
@@ -14,6 +15,7 @@ import java.net.URL;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = {"alekseytyan.*"})
+@PropertySource("classpath:application.properties")
 public class AppConfig {
 
     @Bean
@@ -26,17 +28,17 @@ public class AppConfig {
         );
     }
 
-    @Value("#{countrySinger.firstName}")
-    String firstName;
+    @Value("${countrySinger.firstName}")
+    private String firstName;
 
-    @Value("#{countrySinger.lastName}")
-    String lastName;
+    @Value("${countrySinger.lastName}")
+    private String lastName;
 
-    @Value("#{countrySinger.birthdate}")
-    DateTime birthdate;
+    @Value("${countrySinger.birthdate}")
+    private DateTime birthdate;
 
-    @Value("#{countrySinger.personalSite}")
-    URL website;
+    @Value("${countrySinger.personalSite}")
+    private URL website;
 
     @Bean
     public Singer countrySinger() {

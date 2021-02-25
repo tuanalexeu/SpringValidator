@@ -13,7 +13,7 @@ public class DemoApplication implements CommandLineRunner {
     private Singer singer;
 
     @Autowired
-    public void setSinger(@Qualifier("eric") Singer singer) {
+    public void setSinger(@Qualifier("countrySinger") Singer singer) {
         this.singer = singer;
     }
 

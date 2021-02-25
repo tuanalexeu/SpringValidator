@@ -1,5 +1,6 @@
 package alekseytyan.config;
 
+import alekseytyan.converter.SingerToAnotherSingerConverter;
 import alekseytyan.converter.StringToDateTimeConverter;
 import alekseytyan.entity.Singer;
 import org.joda.time.DateTime;
@@ -50,6 +51,7 @@ public class AppConfig {
         ConversionServiceFactoryBean conversionServiceFactoryBean = new ConversionServiceFactoryBean();
         Set<Converter> convs = new HashSet<>();
         convs.add(converter());
+        convs.add(singerConverter());
         conversionServiceFactoryBean.setConverters(convs);
         conversionServiceFactoryBean.afterPropertiesSet();
         return conversionServiceFactoryBean;
@@ -61,5 +63,10 @@ public class AppConfig {
         converter.setDatePattern(dateFormatPattern);
         converter.init();
         return converter;
+    }
+
+    @Bean
+    public SingerToAnotherSingerConverter singerConverter() {
+        return new SingerToAnotherSingerConverter();
     }
 }

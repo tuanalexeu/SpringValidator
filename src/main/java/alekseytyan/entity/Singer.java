@@ -2,14 +2,19 @@ package alekseytyan.entity;
 
 import org.joda.time.DateTime;
 
+import javax.validation.constraints.*;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 
 public class Singer {
 
+    @NotNull
+    @Size(min=2, max=60)
     private String firstName;
-    private String lastName;
 
+    private String lastName;
+    private Genre genre;
+    private Gender gender;
     private DateTime birthdate;
     private URL personalSite;
 
@@ -34,6 +39,22 @@ public class Singer {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public DateTime getBirthdate() {

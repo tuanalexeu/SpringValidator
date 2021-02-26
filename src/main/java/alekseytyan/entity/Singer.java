@@ -13,7 +13,10 @@ public class Singer {
     private String firstName;
 
     private String lastName;
+
+    @NotNull
     private Genre genre;
+
     private Gender gender;
     private DateTime birthdate;
     private URL personalSite;

@@ -1,4 +1,5 @@
 package alekseytyan.entity;
 
-public class Genre {
+public enum Genre {
+    POP, JAZZ;
 }

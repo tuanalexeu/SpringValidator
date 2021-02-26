@@ -1,9 +1,11 @@
 package alekseytyan.config;
 
+import alekseytyan.converter.ApplicationConversionServiceFactoryBean;
 import alekseytyan.converter.SingerToAnotherSingerConverter;
 import alekseytyan.converter.StringToDateTimeConverter;
 import alekseytyan.entity.Singer;
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,7 +17,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 @Configuration
@@ -26,6 +30,13 @@ public class AppConfig {
 
     @Value("${date.format.pattern}")
     private String dateFormatPattern;
+
+    private ApplicationConversionServiceFactoryBean conversionService;
+
+    @Autowired
+    public void setConversionService(ApplicationConversionServiceFactoryBean conversionService) {
+        this.conversionService = conversionService;
+    }
 
     @Bean
     public Singer eric() throws MalformedURLException {
@@ -68,5 +79,16 @@ public class AppConfig {
     @Bean
     public SingerToAnotherSingerConverter singerConverter() {
         return new SingerToAnotherSingerConverter();
+    }
+
+
+    @Bean
+    public Singer john() throws MalformedURLException, ParseException {
+        return new Singer(
+                "John",
+                "Johnny",
+                conversionService.getTimeFormatter().parse("1977-10-16", Locale.ENGLISH),
+                new URL("http://example.com")
+        );
     }
 }

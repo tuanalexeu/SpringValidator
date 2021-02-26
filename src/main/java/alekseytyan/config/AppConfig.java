@@ -14,6 +14,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -30,13 +31,6 @@ public class AppConfig {
 
     @Value("${date.format.pattern}")
     private String dateFormatPattern;
-
-    private ApplicationConversionServiceFactoryBean conversionService;
-
-    @Autowired
-    public void setConversionService(ApplicationConversionServiceFactoryBean conversionService) {
-        this.conversionService = conversionService;
-    }
 
     @Bean
     public Singer eric() throws MalformedURLException {
@@ -56,6 +50,14 @@ public class AppConfig {
         return new Singer(firstName, lastName, birthdate, website);
     }
 
+    // Convertors
+
+    private ApplicationConversionServiceFactoryBean conversionService;
+
+    @Autowired
+    public void setConversionService(ApplicationConversionServiceFactoryBean conversionService) {
+        this.conversionService = conversionService;
+    }
 
     @Bean
     public ConversionServiceFactoryBean conversionService() {
@@ -91,4 +93,13 @@ public class AppConfig {
                 new URL("http://example.com")
         );
     }
+
+    // Validator
+
+    @Bean
+    public LocalValidatorFactoryBean validator() {
+        return new LocalValidatorFactoryBean();
+    }
+
+
 }
